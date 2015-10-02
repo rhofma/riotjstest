@@ -19,6 +19,10 @@ riot.tag('hello-form', '<form onsubmit="{sayHello}"> <input type="text" name="gr
          
     
 });
-riot.tag('hello-world', '<h3>Hello {opts.greet}</h3>', function(opts) {
-
+riot.tag('hello-world', '<h3>Hello {opts.firstName}</h3> <input type="text" name="first_name"> <button onclick="{updateName}">update</button>', function(opts) {
+    
+        this.updateName = function() {
+            opts.firstName = this.first_name.value;
+        }.bind(this);
+    
 });

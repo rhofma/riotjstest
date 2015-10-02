@@ -3,13 +3,35 @@
     <title>riot test</title>
   </head>
   <body>
-    <h1>RIOT JS</h1>
-    <hello-form></hello-form>
+    <contact-list></contact-list>
       
-    <script src="bower_components/riot/riot.min.js"></script>
+    <script src="bower_components/riot/riot.min.js"></script>   
     <script src="tags/all.js"></script>
     <script>
-        riot.mount('hello-form');
+/*        var peeps = [
+            {first: "David", last: "Hasselhoff"},
+            {first: "Un Jong", last: "Kim"},
+        ];*/
+        
+        
+        riot.mount('contact-list', {callback: tagCallback});
+        
+        function tagCallback(tag) {
+            var request = new XMLHttpRequest();
+            request.open('GET', 'people.json', true);
+            request.onload = function () {
+                if (request.status == 200) {
+                    var data = JSON.parse(request.responseText);
+                    tag.trigger('data-loaded', data.people);
+                }
+            }
+            
+            setTimeout(function () {
+                request.send();
+            }, 2000);
+            
+        }
+        
     </script>
 
   </body>
